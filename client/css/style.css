@@ -1,0 +1,16 @@
+div.main {
+    padding: 5%;
+}
+
+button.main {
+    font-size: 400%;
+    color: white;
+    background-color: black;
+    border-color: white;
+    border-radius: 15px;
+}
+
+button:hover {
+    color: #0892D0;
+    border-color: #0892D0;
+}
