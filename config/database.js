@@ -1,5 +1,5 @@
 module.exports = {
-  database: 'mongodb://localhost:27017/workouttracking',
+  database: 'mongodb://localhost:27017/workout_db',
   secret: 'secret'
 }
 

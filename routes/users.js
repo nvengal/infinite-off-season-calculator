@@ -13,11 +13,17 @@ router.post('/register', (req, res, next) => {
     email: req.body.email
   });
 
-  User.addUser(newUser, (err, user) => {
-    if (err) {
-      res.json({success: false, msg: 'Failed to register user'});
+  User.getUserByUsername(newUser.username, (err, user) => {
+    if (user) {
+      res.json({success: false, msg: 'Username already in use'});
     } else {
-      res.json({success: true, msg: 'User registered'});
+      User.addUser(newUser, (err, user) => {
+        if (err) {
+          res.json({success: false, msg: 'Failed to register user'});
+        } else {
+          res.json({success: true, msg: 'User registered'});
+        }
+      });
     }
   });
 });
@@ -41,7 +47,7 @@ router.post('/authenticate', (req, res, next) => {
 
         res.json({
           success: true,
-          token: token,
+          token: "JWT " + token,
           user: {
             id: user._id,
             name: user.name,
