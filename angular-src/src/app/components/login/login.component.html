@@ -1,7 +1,7 @@
 <div class="text-center">
   <h2 class="page-header">Login</h2>
 </div>
-<form (submit)="onLoginSubmit()">
+<form>
   <div class="text-center form-group">
     <label>Username</label>
     <input type="text" [(ngModel)]="username" name="username" class="form-control" maxlength="25">
@@ -11,7 +11,7 @@
     <input type="password" [(ngModel)]="password" name="password" class="form-control" maxlength="25">
   </div>
   <div class="text-center">
-    <input type="submit" class="btn btn-success" value="Login">
-    <input type="submit" class="btn btn-success" value="Create User">
+    <button type="submit" class="btn btn-success" (click)=login()>Login</button>
+    <button type="submit" class="btn btn-success"(click)=register()>Create User</button>
   </div>
 </form>

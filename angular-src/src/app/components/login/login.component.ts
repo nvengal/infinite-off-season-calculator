@@ -22,26 +22,38 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  onLoginSubmit() {
+  getUser() {
     const user = {
       username: this.username,
       password: this.password
     }
-
-    if (!this.validateService.validateLogin(user)) {
-    this.flashMessage.show('Please fill out all fields', {cssClass:'alert-danger text-center', timeout:3000});
-      return false;
-    }
-
-    this.authService.registerUser(user).subscribe(data => {
-      if (data.success) {
-        this.flashMessage.show('New User Creation Successful', {cssClass:'alert-success text-center', timeout:3000});
-        this.router.navigate(['/']);
-      } else {
-        this.flashMessage.show(data.msg, {cssClass:'alert-danger text-center', timeout:3000});
-        this.router.navigate(['/login']);
-      }
-    });
+    return user;
   }
 
+  validate(user) {
+    if (!this.validateService.validateLogin(user)) {
+      this.flashMessage.show('Please fill out all fields', {cssClass:'alert-danger text-center', timeout:3000});
+      return false;
+    }
+    return true;
+  }
+
+  register() {
+    const user = this.getUser();
+    if (this.validate(user)) {
+      this.authService.registerUser(user).subscribe(data => {
+        if (data.success) {
+          this.flashMessage.show('New User Creation Successful', {cssClass:'alert-success text-center', timeout:3000});
+          this.router.navigate(['/']);
+        } else {
+          this.flashMessage.show(data.msg, {cssClass:'alert-danger text-center', timeout:3000});
+          this.router.navigate(['/login']);
+        }
+      });  
+    }
+  }
+
+  login(user) {
+    
+  }
 }
