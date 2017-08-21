@@ -5,8 +5,12 @@ import { HttpModule } from '@angular/http';
 import {RouterModule, Routes} from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { HomeComponent } from './components/home/home.component';
+
+import {ValidateService} from './services/validate.service';
+import {AuthService} from './services/auth.service';
+import {FlashMessagesModule} from 'angular2-flash-messages';
 
 const appRoutes: Routes = [
   {path:'', component: HomeComponent},
@@ -23,9 +27,13 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    FlashMessagesModule
   ],
-  providers: [],
+  providers: [
+    ValidateService, 
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
