@@ -11,9 +11,10 @@ import { HomeComponent } from './components/home/home.component';
 import {ValidateService} from './services/validate.service';
 import {AuthService} from './services/auth.service';
 import {FlashMessagesModule} from 'angular2-flash-messages';
+import {AuthGuard} from './guards/auth.guard';
 
 const appRoutes: Routes = [
-  {path:'', component: HomeComponent},
+  {path:'', component: HomeComponent, canActivate:[AuthGuard]},
   {path:'login', component: LoginComponent}
 ]
 
@@ -32,7 +33,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     ValidateService, 
-    AuthService
+    AuthService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

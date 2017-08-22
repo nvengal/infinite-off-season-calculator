@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
     private router:Router) { }
 
   ngOnInit() {
+    localStorage.clear();
   }
 
   getUser() {
@@ -44,7 +45,7 @@ export class LoginComponent implements OnInit {
       this.authService.registerUser(user).subscribe(data => {
         if (data.success) {
           this.flashMessage.show('New User Creation Successful', {cssClass:'alert-success text-center', timeout:3000});
-          this.router.navigate(['/']);
+          this.login();
         } else {
           this.flashMessage.show(data.msg, {cssClass:'alert-danger text-center', timeout:3000});
           this.router.navigate(['/login']);
@@ -53,7 +54,18 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  login(user) {
-    
+  login() {
+    const user = this.getUser();
+    if (this.validate(user)) {
+      this.authService.authenticateUser(user).subscribe(data => {
+        if (data.success) {
+          this.authService.storeUserData(data.token, data.user);
+          this.router.navigate(['/']);
+        } else {
+          this.flashMessage.show(data.msg, {cssClass:'alert-danger text-center', timeout:3000});
+          this.router.navigate(['/login']);
+        }
+      });
+    }
   }
 }
