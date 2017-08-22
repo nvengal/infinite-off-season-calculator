@@ -24,6 +24,8 @@ mongoose.connection.on('error', (err) => {
 const app = express();
 
 const users = require('./routes/users');
+const weights = require('./routes/current_weights');
+const maxes = require('./routes/max_weights');
 
 const port = 3000;
 
@@ -43,6 +45,8 @@ app.use(passport.session());
 require('./config/passport')(passport);
 
 app.use('/users', users);
+app.use('/weights', weights);
+app.use('/weights', maxes);
 
 //Index Route
 app.get('/', (req, res) => {
