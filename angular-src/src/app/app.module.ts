@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { InputMaxComponent } from './components/input-max/input-max.component';
+import { InputRepsComponent } from './components/input-reps/input-reps.component';
 
 import {ValidateService} from './services/validate.service';
 import {AuthService} from './services/auth.service';
@@ -20,7 +21,8 @@ import {AuthGuard} from './guards/auth.guard';
 const appRoutes: Routes = [
   {path:'', component: HomeComponent, canActivate:[AuthGuard]},
   {path:'login', component: LoginComponent},
-  {path:'max', component: InputMaxComponent, canActivate:[AuthGuard]}
+  {path:'max', component: InputMaxComponent, canActivate:[AuthGuard]},
+  {path:'work', component: InputRepsComponent, canActivate:[AuthGuard]}
 ]
 
 @NgModule({
@@ -28,7 +30,8 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    InputMaxComponent
+    InputMaxComponent,
+    InputRepsComponent
   ],
   imports: [
     BrowserModule,

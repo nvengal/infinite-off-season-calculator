@@ -1,0 +1,14 @@
+<h1 class="page-header text-center">{{exercise}}</h1>
+<br>
+<form>
+  <div class="form-group text-center">
+    <label>{{currentWeight}}</label>
+  </div>
+  <div class="form-group text-center">
+    <label>Reps: </label>
+    <input type="text" [(ngModel)]="reps" name="reps" class="main" maxlength="4">
+  </div>
+  <div class="row text-center">
+    <button type="submit" class="btn btn-success" (click)=addCurrent()>Submit</button>     
+  </div>
+</form>
