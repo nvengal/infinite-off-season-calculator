@@ -18,21 +18,20 @@ export class InputMaxComponent implements OnInit {
     private weightService: WeightService,
     private flashMessage: FlashMessagesService,
     private router: Router) {
-    this.load();
+    this.load();  
   }
 
   ngOnInit() { }
 
   load() {
-    this.exercise = localStorage.getItem('exercise').toUpperCase();
     this.weightService.getMax().subscribe(data => {
       if (data.success) {
         this.currentMax = data.max;
-      }
-      else {
+      } else {
         this.currentMax = '0';
       }
     });
+    this.exercise = localStorage.getItem('exercise').toUpperCase();
   }
 
   addMax() {
@@ -47,4 +46,5 @@ export class InputMaxComponent implements OnInit {
       }
     });
   }
+  
 }

@@ -11,10 +11,10 @@ export class WeightService {
   constructor(private http: Http) {
     this.authToken = localStorage.getItem('token');
     this.user_id = JSON.parse(localStorage.getItem('user')).id;
-    this.exercise = localStorage.getItem('exercise');
   }
 
   getMax() {
+    this.exercise = localStorage.getItem('exercise');
     let query = {'user_id':this.user_id, 'exercise':this.exercise};
     let headers = new Headers();
     headers.append('Authorization', this.authToken);
@@ -23,6 +23,7 @@ export class WeightService {
   }
   
   addMax(weight) {
+    this.exercise = localStorage.getItem('exercise');
     let newMax  = {
       'user_id':this.user_id,
       'exercise':this.exercise,
