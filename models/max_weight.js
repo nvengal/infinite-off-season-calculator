@@ -3,9 +3,18 @@ const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
 const MaxWeightSchema = mongoose.Schema({
-  user_id: String, 
-  exercise: String, 
-  weight: Number,
+  user_id: {
+    type: String,
+    required: true
+  },
+  exercise: {
+    type: String,
+    required: true
+  },
+  weight: {
+    type: Number,
+    required: true
+  },
   date: {
     type: Date,
     default: Date.now
@@ -19,6 +28,7 @@ module.exports.addMax = function(newWeight, callback) {
 }
 
 module.exports.getMax = function(user_id, exercise, callback) {
-  MaxWeight.find({user_id: user_id, exercise: exercise}).sort('-date').exec(callback);
+  const query = {user_id: user_id, exercise: exercise};
+  MaxWeight.find(query).sort('-date').exec(callback);
 }
 

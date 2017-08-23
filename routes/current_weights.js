@@ -4,44 +4,30 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const Weight = require('../models/current_weight');
 
-router.post('/initializeCurrent', passport.authenticate('jwt', {session:false}), (req, res, next) => {
-  let weight = new Weight({
-    user_id: req.body.user_id,
-    exercise: req.body.exercise,
-    weight: req.body.weight
-  });
-
-  Weight.initializeCurrentWeight(weight, (err, weight) => {
-    if (err) {
-      res.json({success: false, msg: 'Failed to save weight'});
-    } else {
-      res.json({success: true, msg: 'Initialized current weight'});
-    }
-  });
-});
-
-router.post('/updateCurrent', passport.authenticate('jwt', {session:false}), (req, res, next) => {
+router.post('/addCurrent', passport.authenticate('jwt', {session:false}), (req, res, next) => {
   let newWeight = new Weight({
     user_id: req.body.user_id,
     exercise: req.body.exercise,
-    weight: req.body.weight
+    weight: req.body.weight,
+    reps: req.body.reps
   });
 
-  Weight.updateCurrentWeight(newWeight, (err, weight) => {
+  Weight.addCurrentWeight(newWeight, (err, weight) => {
     if (err) {
-      res.json({success: false, msg: 'Failed to update weight'});
+      res.json({success: false, msg: 'Failed to update current weight'});
     } else {
-      res.json({success: true, msg: 'Weight updated'});
+      res.json({success: true, msg: 'Current weight updated'});
     }
   });
 });
 
 router.post('/getCurrent', passport.authenticate('jwt', {session: false}), (req, res, next) => {
   Weight.getCurrentWeight(req.body.user_id, req.body.exercise, (err, weight) => {
-    if (err) { 
+    if (err) throw err; 
+    else if (!weight[0]) { 
       res.json({success: false, msg: "Error when retrieving current weight"});
     } else {
-      res.json({succes: true, weight: weight.weight});
+      res.json({succes: true, weight: weight[0].weight});
     }
   });
 });

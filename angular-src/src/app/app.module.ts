@@ -7,22 +7,28 @@ import {RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
+import { InputMaxComponent } from './components/input-max/input-max.component';
 
 import {ValidateService} from './services/validate.service';
 import {AuthService} from './services/auth.service';
+import {WeightService} from './services/weight.service';
+
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import {AuthGuard} from './guards/auth.guard';
 
+
 const appRoutes: Routes = [
   {path:'', component: HomeComponent, canActivate:[AuthGuard]},
-  {path:'login', component: LoginComponent}
+  {path:'login', component: LoginComponent},
+  {path:'max', component: InputMaxComponent, canActivate:[AuthGuard]}
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    InputMaxComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +40,7 @@ const appRoutes: Routes = [
   providers: [
     ValidateService, 
     AuthService,
+    WeightService,
     AuthGuard
   ],
   bootstrap: [AppComponent]

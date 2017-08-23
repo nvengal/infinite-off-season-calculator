@@ -14,6 +14,14 @@ const CurrentWeightSchema = mongoose.Schema({
   weight: {
     type: Number,
     required: true
+  },
+  reps: {
+    type: Number,
+    require: true
+  },
+  date: {
+    type: Date,
+    default: Date.now
   }
 });
 
@@ -21,14 +29,10 @@ const CurrentWeight = module.exports = mongoose.model('CurrentWeight', CurrentWe
 
 module.exports.getCurrentWeight = function(user_id, exercise, callback) {
   const query = {user_id: user_id, exercise: exercise};
-  CurrentWeight.findOne(query, callback);
+  CurrentWeight.find(query).sort('-date').exec(callback);
 }
 
-module.exports.initializeCurrentWeight = function(weight, callback) {
-  weight.save(callback);
+module.exports.addCurrentWeight = function(newWeight, callback) {
+  newWeight.save(callback);
 }
 
-module.exports.updateCurrentWeight = function(newWeight, callback) {
-  const query = {user_id: newWeight.user_id, exercise: newWeight.exercise};
-  CurrentWeight.updateOne(query, {$set: {weight: newWeight.weight}}, callback);
-}

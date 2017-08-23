@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
     private validateService: ValidateService,
     private authService: AuthService,
     private flashMessage: FlashMessagesService,
-    private router:Router) { }
+    private router: Router) { }
 
   ngOnInit() {
     localStorage.clear();

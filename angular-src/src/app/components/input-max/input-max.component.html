@@ -1,0 +1,14 @@
+<h1 class="page-header text-center">{{exercise}}</h1>
+<h3 class="text-center">Time to Max<h3>
+<form>
+  <div class="form-group text-center">
+    <label>Current Max: {{currentMax}}</label>
+  </div>
+  <div class="form-group text-center">
+    <label>New Max: </label>
+    <input type="text" [(ngModel)]="newMax" name="newMax" class="main" maxlength="4">
+  </div>
+  <div class="row text-center">
+    <button type="submit" class="btn btn-success" (click)=addMax()>Submit</button>     
+  </div>
+</form>
