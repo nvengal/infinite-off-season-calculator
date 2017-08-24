@@ -22,12 +22,12 @@ router.post('/addCurrent', passport.authenticate('jwt', {session:false}), (req, 
 });
 
 router.post('/getCurrent', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-  Weight.getCurrentWeight(req.body.user_id, req.body.exercise, (err, weight) => {
+  Weight.getCurrentWeight(req.body.user_id, req.body.exercise, (err, current) => {
     if (err) throw err; 
-    else if (!weight[0]) { 
+    else if (!current[0]) { 
       res.json({success: false, msg: "Error when retrieving current weight"});
     } else {
-      res.json({succes: true, weight: weight[0].weight});
+      res.json({success: true, current: current[0]});
     }
   });
 });

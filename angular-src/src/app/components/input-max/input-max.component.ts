@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
 export class InputMaxComponent implements OnInit {
   exercise: String;
   currentMax: String;
-  newMax: String;
+  newMax: string;
   
   constructor(
     private weightService: WeightService,
@@ -37,6 +37,9 @@ export class InputMaxComponent implements OnInit {
   addMax() {
     this.weightService.addMax(this.newMax).subscribe(data => {
       if (data.success) {
+        this.weightService.addCurrent((parseInt(this.newMax) * .7).toString(), '-1').subscribe(datum => {
+        //this.flashMessage.show(datum.msg, {cssClass:'alert-success text-center', timeout:3000});
+        });
         this.flashMessage.show(data.msg, {cssClass:'alert-success text-center', timeout:3000});
         this.router.navigate(['/']);
         return true;

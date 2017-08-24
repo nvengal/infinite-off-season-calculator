@@ -27,10 +27,35 @@ export class WeightService {
     let newMax  = {
       'user_id':this.user_id,
       'exercise':this.exercise,
-      'weight':weight};
+      'weight':weight
+    };
     let headers = new Headers();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:3000/weights/addMax', newMax, {headers:headers}).map(res => res.json());  
   }
+
+  getCurrent() {
+    this.exercise = localStorage.getItem('exercise');
+    let query = {'user_id':this.user_id, 'exercise':this.exercise};
+    let headers = new Headers();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/weights/getCurrent', query, {headers:headers}).map(res => res.json());
+  }
+
+  addCurrent(weight, reps) {
+    this.exercise = localStorage.getItem('exercise');
+    let current = {
+      'user_id':this.user_id,
+      'exercise': this.exercise,
+      'weight': weight,
+      'reps': reps
+    };
+    let headers = new Headers();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/weights/addCurrent', current, {headers:headers}).map(res => res.json());
+  }
+
 }

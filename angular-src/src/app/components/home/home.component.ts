@@ -9,9 +9,10 @@ import {WeightService} from '../../services/weight.service';
 })
 export class HomeComponent implements OnInit {
 
-constructor(
-  private router: Router,
-  private weightService: WeightService) { }
+  constructor(
+    private router: Router,
+    private weightService: WeightService) {
+  }
 
   ngOnInit() {
   }
@@ -32,7 +33,29 @@ constructor(
   }
   
   navigate() {
-    this.router.navigate(['/max']);
+    var max;
+    var currentWeight;
+    var currentReps;
+    this.weightService.getMax().subscribe(data => {
+      if (data.success) max = data.max;
+      else max = 0;
+      this.weightService.getCurrent().subscribe(datum => {
+        console.log(datum.current);
+        if (data.success) {
+          currentWeight = datum.current.weight;
+          currentReps = datum.current.reps;
+        } else {
+          currentWeight = 0;
+          currentReps = 0;
+        }
+        
+        if (max == 0 || (currentWeight >= max * .8 && currentReps >= 8)) { 
+          this.router.navigate(['/max']);
+        } else {
+          this.router.navigate(['/work']);
+        }
+      });
+    });
   }
 
 }
