@@ -8,10 +8,12 @@ import {WeightService} from '../../services/weight.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  username: string;
 
   constructor(
     private router: Router,
     private weightService: WeightService) {
+    this.username = JSON.parse(localStorage.getItem('user')).username.toUpperCase();  
   }
 
   ngOnInit() {

@@ -353,6 +353,7 @@ var HomeComponent = (function () {
     function HomeComponent(router, weightService) {
         this.router = router;
         this.weightService = weightService;
+        this.username = JSON.parse(localStorage.getItem('user')).username.toUpperCase();
     }
     HomeComponent.prototype.ngOnInit = function () {
     };
@@ -765,28 +766,28 @@ module.exports = "<div class=\"container\">\n  <flash-messages></flash-messages>
 /***/ 683:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n  <div class=\"text-center main\">\n    <a class=\"btn btn-info main\" (click)=deadlift()>Deadlift</a>\n  </div>\n</div>\n<div class=\"row\">\n  <div class=\"text-center main\">\n    <a class=\"btn btn-info main\" (click)=bench()>Bench</a>\n  </div>\n</div>\n<div class=\"row\">\n  <div class=\"text-center main\">\n    <a class=\"btn btn-info main\" (click)=squat()>Squat</a>\n  </div>\n</div>\n"
+module.exports = "<h1 class=\"text-center\">{{username}}'S WORKOUT</h1>\n<div class=\"row\">\n  <div class=\"text-center main\">\n    <a class=\"btn btn-info main\" (click)=deadlift()>Deadlift</a>\n  </div>\n</div>\n<div class=\"row\">\n  <div class=\"text-center main\">\n    <a class=\"btn btn-info main\" (click)=bench()>Bench</a>\n  </div>\n</div>\n<div class=\"row\">\n  <div class=\"text-center main\">\n    <a class=\"btn btn-info main\" (click)=squat()>Squat</a>\n  </div>\n</div>\n"
 
 /***/ }),
 
 /***/ 684:
 /***/ (function(module, exports) {
 
-module.exports = "<h1 class=\"page-header text-center\">{{exercise}}</h1>\n<h3 class=\"text-center\">It's Time to Max</h3>\n<h3><form>\n  <div class=\"form-group text-center\">\n    <label>Current Max: {{currentMax}}</label>\n  </div>\n  <div class=\"form-group text-center\">\n    <label>New Max: </label>\n    <input type=\"text\" [(ngModel)]=\"newMax\" name=\"newMax\" class=\"main\" maxlength=\"4\">\n  </div>\n  <div class=\"text-center\">\n    <button type=\"submit\" class=\"btn btn-success\" (click)=addMax()>Submit</button>     \n  </div>\n</form></h3>\n"
+module.exports = "<h1 class=\"page-header text-center\">{{exercise}}</h1>\n<h3 class=\"text-center\">It's Time to Max</h3>\n<h3><form autocomplete=\"off\">\n  <div class=\"form-group text-center\">\n    <label>Current Max: {{currentMax}}</label>\n  </div>\n  <div class=\"form-group text-center\">\n    <label>New Max: </label>\n    <input type=\"text\" [(ngModel)]=\"newMax\" name=\"newMax\" class=\"main\" maxlength=\"4\">\n  </div>\n  <div class=\"text-center\">\n    <button type=\"submit\" class=\"btn btn-success\" (click)=addMax()>Submit</button>     \n  </div>\n</form></h3>\n"
 
 /***/ }),
 
 /***/ 685:
 /***/ (function(module, exports) {
 
-module.exports = "<h1 class=\"page-header text-center\">{{exercise}}</h1>\n<h3 class=\"text-center\">Working Sets: 3x5</h3>\n<h3><form>\n  <div class=\"form-group text-center\">\n    <label>{{workingWeight}}</label>\n  </div>\n  <div class=\"form-group text-center\">\n    <label>AMAP: </label>\n    <input type=\"text\" [(ngModel)]=\"reps\" name=\"reps\" class=\"main\" maxlength=\"4\">\n  </div>\n  <div class=\"text-center\">\n    <button type=\"submit\" class=\"btn btn-success\" (click)=addCurrent()>Submit</button>     \n  </div>\n</form></h3>\n"
+module.exports = "<h1 class=\"page-header text-center\">{{exercise}}</h1>\n<h3 class=\"text-center\">Working Sets: 3x5</h3>\n<h3><form autocomplete=\"off\">\n  <div class=\"form-group text-center\">\n    <label>{{workingWeight}}</label>\n  </div>\n  <div class=\"form-group text-center\">\n    <label>AMAP: </label>\n    <input type=\"text\" [(ngModel)]=\"reps\" name=\"reps\" class=\"main\" maxlength=\"4\">\n  </div>\n  <div class=\"text-center\">\n    <button type=\"submit\" class=\"btn btn-success\" (click)=addCurrent()>Submit</button>     \n  </div>\n</form></h3>\n"
 
 /***/ }),
 
 /***/ 686:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"text-center\">\n  <h2 class=\"page-header\">Infinite Off-Season Calculator</h2>\n</div>\n<form>\n  <div class=\"text-center form-group\">\n    <label>Username</label>\n    <input type=\"text\" [(ngModel)]=\"username\" name=\"username\" class=\"form-control main\" maxlength=\"46\">\n  </div>\n  <div class=\"text-center form-group\">\n    <label>Password</label>\n    <input type=\"password\" [(ngModel)]=\"password\" name=\"password\" class=\"form-control main\" maxlength=\"46\">\n  </div>\n  <div class=\"text-center\">\n    <button type=\"submit\" class=\"btn btn-success\" (click)=login()>Login</button>\n    <button type=\"submit\" class=\"btn btn-success\" (click)=register()>Create</button>\n  </div>\n</form>\n"
+module.exports = "<div class=\"text-center\">\n  <h2 class=\"page-header\">Infinite Off-Season Calculator</h2>\n</div>\n<form autocomplete=\"off\">\n  <div class=\"text-center form-group\">\n    <label>Username</label>\n    <input type=\"text\" [(ngModel)]=\"username\" name=\"username\" class=\"form-control main\" maxlength=\"46\">\n  </div>\n  <div class=\"text-center form-group\">\n    <label>Password</label>\n    <input type=\"password\" [(ngModel)]=\"password\" name=\"password\" class=\"form-control main\" maxlength=\"46\">\n  </div>\n  <div class=\"text-center\">\n    <button type=\"submit\" class=\"btn btn-success\" (click)=login()>Login</button>\n    <button type=\"submit\" class=\"btn btn-success\" (click)=register()>Create</button>\n  </div>\n</form>\n"
 
 /***/ }),
 
