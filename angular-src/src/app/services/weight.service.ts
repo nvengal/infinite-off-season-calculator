@@ -19,7 +19,7 @@ export class WeightService {
     let headers = new Headers();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/weights/getMax', query, {headers:headers}).map(res => res.json());  
+    return this.http.post('weights/getMax', query, {headers:headers}).map(res => res.json());  
   }
   
   addMax(weight) {
@@ -32,7 +32,7 @@ export class WeightService {
     let headers = new Headers();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/weights/addMax', newMax, {headers:headers}).map(res => res.json());  
+    return this.http.post('weights/addMax', newMax, {headers:headers}).map(res => res.json());  
   }
 
   getCurrent() {
@@ -41,7 +41,7 @@ export class WeightService {
     let headers = new Headers();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/weights/getCurrent', query, {headers:headers}).map(res => res.json());
+    return this.http.post('weights/getCurrent', query, {headers:headers}).map(res => res.json());
   }
 
   addCurrent(weight, reps) {
@@ -55,7 +55,7 @@ export class WeightService {
     let headers = new Headers();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/weights/addCurrent', current, {headers:headers}).map(res => res.json());
+    return this.http.post('weights/addCurrent', current, {headers:headers}).map(res => res.json());
   }
 
 }
