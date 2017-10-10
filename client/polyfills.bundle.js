@@ -67,7 +67,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 // NgClass on SVG elements
 // Needed for: IE10, IE11
 // import 'classlist.js';
-//# sourceMappingURL=/home/nikhil/Documents/projects/trial2-ios-calc/infinite-off-season-calculator/angular-src/src/polyfills.js.map
+//# sourceMappingURL=/home/nikhil/Documents/projects/infinite-off-season-calculator/angular-src/src/polyfills.js.map
 
 /***/ }),
 

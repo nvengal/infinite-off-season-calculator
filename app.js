@@ -49,8 +49,8 @@ app.use('/weights', weights);
 app.use('/weights', maxes);
 
 //Index Route
-app.get('/', (req, res) => {
-  res.send('Invalid Endpoint');
+app.get('*', (req, res) => {
+  res.sendFile('client/index.html', {"root": __dirname});
 });
 
 //Start Server
