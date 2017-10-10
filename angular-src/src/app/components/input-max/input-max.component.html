@@ -1,4 +1,4 @@
-<h1 class="page-header text-center">{{exercise}}</h1>
+<h1 class="page-header text-center">{{exercise | uppercase}}</h1>
 <h3 class="text-center">It's Time to Max</h3>
 <h3><form autocomplete="off">
   <div class="form-group text-center">
@@ -6,9 +6,9 @@
   </div>
   <div class="form-group text-center">
     <label>New Max: </label>
-    <input type="text" [(ngModel)]="newMax" name="newMax" class="main" maxlength="4">
+    <input type="number" [(ngModel)]="newMax" name="newMax" class="main" maxlength="4">
   </div>
   <div class="text-center">
-    <button type="submit" class="btn btn-success" (click)=addMax()>Submit</button>     
+    <button type="submit" class="btn btn-success" (click)=addMax()>Submit</button>
   </div>
 </form></h3>

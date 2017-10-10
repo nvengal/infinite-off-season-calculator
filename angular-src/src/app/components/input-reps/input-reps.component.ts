@@ -1,52 +1,63 @@
 import { Component, OnInit } from '@angular/core';
 import {WeightService} from '../../services/weight.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute, Params} from '@angular/router';
 
 @Component({
   selector: 'app-input-reps',
   templateUrl: './input-reps.component.html',
-  styleUrls: ['./input-reps.component.css']
+  styleUrls: ['./input-reps.component.css'],
 })
 export class InputRepsComponent implements OnInit {
-  exercise: String;
-  workingWeight: String;
-  reps: String;
+  exercise: string;
+  workingWeight: string;
+  reps: string;
 
   constructor(
     private weightService: WeightService,
     private flashMessage: FlashMessagesService,
-    private router: Router) {
-    this.exercise = localStorage.getItem('exercise').toUpperCase();
-    this.weightService.getCurrent().subscribe(data => {
-      this.calculateWorkingWeight(parseInt(data.current.weight), parseInt(data.current.reps));
+    private router: Router,
+    private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.exercise = params['exercise'];
     });
-    }
+    this.weightService.getCurrent(this.exercise).subscribe(data => {
+      this.workingWeight = data.current.weight;
+      this.weightService.getMax(this.exercise).subscribe(datum => {
+        this.calculateWorkingWeight(parseFloat(datum.max) * .025, parseInt(data.current.reps));
+      });
+    });
+  }
 
   ngOnInit() {
   }
 
-  calculateWorkingWeight(previousWeight, previousReps) {
-    if (previousReps >= 0 && previousReps <= 5) {
-      this.workingWeight = (previousWeight * .975).toString();
+  calculateWorkingWeight(weightChangeAmount, previousReps) {
+    if (previousReps != -1 && previousReps <= 5) {
+      this.workingWeight = (parseFloat(this.workingWeight) - weightChangeAmount).toString();
     } else if (previousReps >= 8) {
-      this.workingWeight = (previousWeight * 1.025).toString();
+      this.workingWeight = (parseFloat(this.workingWeight) + weightChangeAmount).toString();
     } else {
-      this.workingWeight = previousWeight.toString();
+      //workingWeight is correct
     }
   }
 
   addCurrent() {
-    this.weightService.addCurrent(this.workingWeight, this.reps).subscribe(data => {
-      if (data.success) {
-        this.flashMessage.show(data.msg, {cssClass:'alert-success text-center', timeout:3000});
-        this.router.navigate(['/']);
-        return true;
-      } else {
-        this.flashMessage.show(data.msg, {cssClass:'alert-danger text-center', timeout:3000});
-        return false;
-      }
-    });
+    if (!this.reps) {
+      this.flashMessage.show("Please enter a valid number for reps",
+        {cssClass: 'alert-danger text-center', timeout:3000});
+    } else {
+      this.weightService.addCurrent(this.exercise, this.workingWeight, this.reps).subscribe(data => {
+        if (data.success) {
+          this.flashMessage.show(data.msg, {cssClass:'alert-success text-center', timeout:3000});
+          this.router.navigate(['/']);
+          return true;
+        } else {
+          this.flashMessage.show(data.msg, {cssClass:'alert-danger text-center', timeout:3000});
+          return false;
+        }
+      });
+    }
   }
 
 }

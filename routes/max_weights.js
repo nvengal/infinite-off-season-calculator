@@ -13,6 +13,7 @@ router.post('/addMax', passport.authenticate('jwt', {session:false}), (req, res,
   Max.addMax(max, (err, max) => {
     if (err) {
       res.json({success: false, msg: 'Failed to save new max'});
+      console.log(err);
     } else {
       res.json({success: true, msg: 'Saved new max'});
     }

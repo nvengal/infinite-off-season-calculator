@@ -6,49 +6,44 @@ import 'rxjs/add/operator/map';
 export class WeightService {
   authToken: any;
   user_id: any;
-  exercise: any;
 
   constructor(private http: Http) {
     this.authToken = localStorage.getItem('token');
     this.user_id = JSON.parse(localStorage.getItem('user')).id;
   }
 
-  getMax() {
-    this.exercise = localStorage.getItem('exercise');
-    let query = {'user_id':this.user_id, 'exercise':this.exercise};
+  getMax(exercise: string) {
+    let query = {'user_id':this.user_id, 'exercise':exercise};
     let headers = new Headers();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    return this.http.post('weights/getMax', query, {headers:headers}).map(res => res.json());  
+    return this.http.post('weights/getMax', query, {headers:headers}).map(res => res.json());
   }
-  
-  addMax(weight) {
-    this.exercise = localStorage.getItem('exercise');
+
+  addMax(exercise: string, weight) {
     let newMax  = {
       'user_id':this.user_id,
-      'exercise':this.exercise,
+      'exercise':exercise,
       'weight':weight
     };
     let headers = new Headers();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    return this.http.post('weights/addMax', newMax, {headers:headers}).map(res => res.json());  
+    return this.http.post('weights/addMax', newMax, {headers:headers}).map(res => res.json());
   }
 
-  getCurrent() {
-    this.exercise = localStorage.getItem('exercise');
-    let query = {'user_id':this.user_id, 'exercise':this.exercise};
+  getCurrent(exercise: string) {
+    let query = {'user_id':this.user_id, 'exercise':exercise};
     let headers = new Headers();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
     return this.http.post('weights/getCurrent', query, {headers:headers}).map(res => res.json());
   }
 
-  addCurrent(weight, reps) {
-    this.exercise = localStorage.getItem('exercise');
+  addCurrent(exercise: string, weight, reps) {
     let current = {
       'user_id':this.user_id,
-      'exercise': this.exercise,
+      'exercise': exercise,
       'weight': weight,
       'reps': reps
     };

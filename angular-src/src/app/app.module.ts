@@ -16,6 +16,7 @@ import {WeightService} from './services/weight.service';
 
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import {AuthGuard} from './guards/auth.guard';
+import { RoundPipe } from './pipes/round.pipe';
 
 
 const appRoutes: Routes = [
@@ -31,7 +32,8 @@ const appRoutes: Routes = [
     LoginComponent,
     HomeComponent,
     InputMaxComponent,
-    InputRepsComponent
+    InputRepsComponent,
+    RoundPipe
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,7 @@ const appRoutes: Routes = [
     FlashMessagesModule
   ],
   providers: [
-    ValidateService, 
+    ValidateService,
     AuthService,
     WeightService,
     AuthGuard

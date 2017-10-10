@@ -9,40 +9,27 @@ import {WeightService} from '../../services/weight.service';
 })
 export class HomeComponent implements OnInit {
   username: string;
+  exercises: string[];
 
   constructor(
     private router: Router,
     private weightService: WeightService) {
-    this.username = JSON.parse(localStorage.getItem('user')).username.toUpperCase();  
+    this.username = JSON.parse(localStorage.getItem('user')).username.toUpperCase();
   }
 
   ngOnInit() {
+    this.exercises = ['Deadlift', 'Bench', 'Squat'];
   }
 
-  deadlift() {
-    localStorage.setItem('exercise', 'deadlift');
-    this.navigate();
-  }
-  
-  bench() {
-    localStorage.setItem('exercise', 'bench');
-    this.navigate();  
-  }
-
-  squat() {
-    localStorage.setItem('exercise', 'squat');
-    this.navigate(); 
-  }
-  
-  navigate() {
+  navigate(exercise: string) {
+    exercise = exercise.toLowerCase();
     var max;
     var currentWeight;
     var currentReps;
-    this.weightService.getMax().subscribe(data => {
+    this.weightService.getMax(exercise).subscribe(data => {
       if (data.success) max = data.max;
       else max = 0;
-      this.weightService.getCurrent().subscribe(datum => {
-        console.log(datum.current);
+      this.weightService.getCurrent(exercise).subscribe(datum => {
         if (data.success) {
           currentWeight = datum.current.weight;
           currentReps = datum.current.reps;
@@ -50,11 +37,11 @@ export class HomeComponent implements OnInit {
           currentWeight = 0;
           currentReps = 0;
         }
-        
-        if (max == 0 || (currentWeight >= max * .8 && currentReps >= 8)) { 
-          this.router.navigate(['/max']);
+
+        if (max == 0 || (currentWeight >= max * .8 && currentReps >= 8)) {
+          this.router.navigate(['/max', {exercise: exercise}]);
         } else {
-          this.router.navigate(['/work']);
+          this.router.navigate(['/work', {exercise: exercise}]);
         }
       });
     });

@@ -1,14 +1,14 @@
-<h1 class="page-header text-center">{{exercise}}</h1>
+<h1 class="page-header text-center">{{exercise | uppercase}}</h1>
 <h3 class="text-center">Working Sets: 3x5</h3>
 <h3><form autocomplete="off">
   <div class="form-group text-center">
-    <label>{{workingWeight}}</label>
+    <label>{{workingWeight | round}}</label>
   </div>
   <div class="form-group text-center">
     <label>AMAP: </label>
-    <input type="text" [(ngModel)]="reps" name="reps" class="main" maxlength="4">
+    <input type="number" [(ngModel)]="reps" name="reps" class="main" maxlength="4">
   </div>
   <div class="text-center">
-    <button type="submit" class="btn btn-success" (click)=addCurrent()>Submit</button>     
+    <button type="submit" class="btn btn-success" (click)=addCurrent()>Submit</button>
   </div>
 </form></h3>
