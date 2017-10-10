@@ -18,6 +18,7 @@ export class InputMaxComponent implements OnInit {
     private flashMessage: FlashMessagesService,
     private router: Router,
     private activatedRoute: ActivatedRoute) {
+    this.currentMax = '...';
     this.load();
   }
 

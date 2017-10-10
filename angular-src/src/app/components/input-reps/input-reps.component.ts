@@ -18,6 +18,7 @@ export class InputRepsComponent implements OnInit {
     private flashMessage: FlashMessagesService,
     private router: Router,
     private activatedRoute: ActivatedRoute) {
+    this.workingWeight = "...";
     this.activatedRoute.params.subscribe((params: Params) => {
       this.exercise = params['exercise'];
     });

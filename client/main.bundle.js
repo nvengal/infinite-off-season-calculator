@@ -308,6 +308,7 @@ var InputMaxComponent = (function () {
         this.flashMessage = flashMessage;
         this.router = router;
         this.activatedRoute = activatedRoute;
+        this.currentMax = '...';
         this.load();
     }
     InputMaxComponent.prototype.ngOnInit = function () { };
@@ -418,6 +419,7 @@ var InputRepsComponent = (function () {
         this.flashMessage = flashMessage;
         this.router = router;
         this.activatedRoute = activatedRoute;
+        this.workingWeight = "...";
         this.activatedRoute.params.subscribe(function (params) {
             _this.exercise = params['exercise'];
         });
@@ -661,6 +663,9 @@ var RoundPipe = (function () {
     function RoundPipe() {
     }
     RoundPipe.prototype.transform = function (weight) {
+        if (isNaN(weight)) {
+            return weight;
+        }
         weight = parseFloat(weight);
         return (Math.round(weight - weight % 5)).toString();
     };
