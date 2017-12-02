@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.exercises = ['Deadlift', 'Bench', 'Squat'];
+    this.exercises = ['Deadlift', 'Bench', 'Squat', 'Incline Press', 'Military Press'];
   }
 
   navigate(exercise: string) {

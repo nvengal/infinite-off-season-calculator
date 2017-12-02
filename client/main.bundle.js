@@ -163,7 +163,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "div.main {\n    padding: 5%;\n}\n\na.main {\n  font-size: 400%;\n}\n", ""]);
+exports.push([module.i, "div.main {\n    padding: 5%;\n}\n\na.main {\n  font-size: 350%;\n}\n", ""]);
 
 // exports
 
@@ -207,7 +207,7 @@ var HomeComponent = (function () {
         this.username = JSON.parse(localStorage.getItem('user')).username.toUpperCase();
     }
     HomeComponent.prototype.ngOnInit = function () {
-        this.exercises = ['Deadlift', 'Bench', 'Squat'];
+        this.exercises = ['Deadlift', 'Bench', 'Squat', 'Incline Press', 'Military Press'];
     };
     HomeComponent.prototype.navigate = function (exercise) {
         var _this = this;
@@ -385,7 +385,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/input-reps/input-reps.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h1 class=\"page-header text-center\">{{exercise | uppercase}}</h1>\n<h3 class=\"text-center\">Working Sets: 3x5</h3>\n<h3><form autocomplete=\"off\">\n  <div class=\"form-group text-center\">\n    <label>{{workingWeight | round}}</label>\n  </div>\n  <div class=\"form-group text-center\">\n    <label>AMAP: </label>\n    <input type=\"number\" [(ngModel)]=\"reps\" name=\"reps\" class=\"main\" maxlength=\"4\">\n  </div>\n  <div class=\"text-center\">\n    <button type=\"submit\" class=\"btn btn-success\" (click)=addCurrent()>Submit</button>\n  </div>\n</form></h3>\n"
+module.exports = "<h1 class=\"page-header text-center\">{{exercise | uppercase}}</h1>\n<h3 class=\"text-center\">Current Max: {{currentMax}}</h3>\n<h3 class=\"text-center\">Working Sets: 3x5</h3>\n<h3><form autocomplete=\"off\">\n  <div class=\"form-group text-center\">\n    <label>{{workingWeight | round}}</label>\n  </div>\n  <div class=\"form-group text-center\">\n    <label>AMAP: </label>\n    <input type=\"number\" [(ngModel)]=\"reps\" name=\"reps\" class=\"main\" maxlength=\"4\">\n  </div>\n  <div class=\"text-center\">\n    <button type=\"submit\" class=\"btn btn-success\" (click)=addCurrent()>Submit</button>\n  </div>\n</form></h3>\n"
 
 /***/ }),
 
@@ -420,6 +420,7 @@ var InputRepsComponent = (function () {
         this.router = router;
         this.activatedRoute = activatedRoute;
         this.workingWeight = "...";
+        this.currentMax = "...";
         this.activatedRoute.params.subscribe(function (params) {
             _this.exercise = params['exercise'];
         });
@@ -428,6 +429,11 @@ var InputRepsComponent = (function () {
             _this.weightService.getMax(_this.exercise).subscribe(function (datum) {
                 _this.calculateWorkingWeight(parseFloat(datum.max) * .025, parseInt(data.current.reps));
             });
+        });
+        this.weightService.getMax(this.exercise).subscribe(function (data) {
+            if (data.success) {
+                _this.currentMax = data.max;
+            }
         });
     }
     InputRepsComponent.prototype.ngOnInit = function () {

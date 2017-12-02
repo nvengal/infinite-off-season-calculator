@@ -12,6 +12,7 @@ export class InputRepsComponent implements OnInit {
   exercise: string;
   workingWeight: string;
   reps: string;
+  currentMax: string;
 
   constructor(
     private weightService: WeightService,
@@ -19,6 +20,7 @@ export class InputRepsComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute) {
     this.workingWeight = "...";
+    this.currentMax = "...";
     this.activatedRoute.params.subscribe((params: Params) => {
       this.exercise = params['exercise'];
     });
@@ -27,6 +29,11 @@ export class InputRepsComponent implements OnInit {
       this.weightService.getMax(this.exercise).subscribe(datum => {
         this.calculateWorkingWeight(parseFloat(datum.max) * .025, parseInt(data.current.reps));
       });
+    });
+    this.weightService.getMax(this.exercise).subscribe(data => {
+      if (data.success) {
+        this.currentMax = data.max;
+      }
     });
   }
 
