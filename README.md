@@ -3,6 +3,5 @@
 A MEAN stack workout calculator and tracker based on [Kizen Training's Infinite Off-Season Workout Program](https://www.youtube.com/watch?v=YPsdBEQ5y1A)
 
 Deployed on heroku at 
-```
-[Workout Calculator](https://infinite-off-season-calculator.herokuapp.com)
-```
+    https://infinite-off-season-calculator.herokuapp.com
+
